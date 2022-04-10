@@ -20,7 +20,7 @@ namespace OrdersReport
         {
             return orders_within_range().Sum(x => x.Amount);
 
-            IEnumerable<Order> orders_within_range() => orders.Where(x => x.PlacedAt >= startDate && x.PlacedAt <= endDate);
+            IEnumerable<Order> orders_within_range() => orders.Where(x => x.PlacedBetween(startDate, endDate));
         }
     }
 
@@ -28,5 +28,7 @@ namespace OrdersReport
     {
         public DateTime PlacedAt { get; set; }
         public decimal Amount { get; set; }
+        public bool PlacedBetween(DateTime startDate, DateTime endDate) =>
+            this.PlacedAt >= startDate && this.PlacedAt <= endDate;
     }
 }
