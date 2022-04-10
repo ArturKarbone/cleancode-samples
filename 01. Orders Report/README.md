@@ -12,9 +12,9 @@ before:
   }
 ```
 
-Turn **orders_within_range** into a local or a private function, since the function contains details. Extract from temp to query.
+Turn **orders_within_range** into a local or a private function, since the function contains details. Extract temp to query.
 One method with two lines turned into two methods one line each (Usually it is an improvement). We can reuse it.
-Programmers read code. Extracting to a function gives as a hint - the details are not important + simplifies reading.
+Programmers read code. Extracting to a function gives us a hint - the details are not important + simplifies reading.
 
 after:
 
@@ -29,7 +29,7 @@ after:
 
 ### Step #2 (Tell. Don't ask)
 
-Don't as order about it's internal status. Send messages instead of that.
+Don't ask order about it's internal status. Send messages instead of that.
 
 before:
 
@@ -43,9 +43,9 @@ after:
 IEnumerable<Order> orders_within_range() => orders.Where(x => x.PlacedBetween(startDate, endDate));
 ```
 
-### Step #3 (Explicit nanming of start/end dates)
+### Step #3 (Explicit naming of start/end dates)
 
-Start and end dates make sense only together. Let's call them DateRange explicitly. Coupling is reduced now also.
+Start and end dates make sense only together. Let's call them DateRange explicitly (improves readability/shows an intent). Coupling is reduced now as well (easier to change).
 
 before:
 
