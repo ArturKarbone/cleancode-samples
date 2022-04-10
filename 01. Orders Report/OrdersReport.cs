@@ -18,8 +18,9 @@ namespace OrdersReport
 
         public decimal TotalSalesWithinDateRange()
         {
-            var orders_within_range = orders.Where(x => x.PlacedAt >= startDate && x.PlacedAt <= endDate);
-            return orders_within_range.Sum(x => x.Amount);
+            return orders_within_range().Sum(x => x.Amount);
+
+            IEnumerable<Order> orders_within_range() => orders.Where(x => x.PlacedAt >= startDate && x.PlacedAt <= endDate);
         }
     }
 
