@@ -17,10 +17,12 @@ namespace OrdersReport
                 new Order() { Amount = 400, PlacedAt = DateTime.Parse("10/3/2022") }
             };
             var report = new OrdersReport(
-                orders, 
-                startDate: DateTime.Parse("10/1/2022"), 
-                endDate: DateTime.Parse("10/2/2022")
-                );
+                orders,
+                new DateRange()
+                {
+                    StartDate = DateTime.Parse("10/1/2022"),
+                    EndDate = DateTime.Parse("10/2/2022")
+                });
 
             var salesAmount = report.TotalSalesWithinDateRange();
             salesAmount.ShouldBe(300m);

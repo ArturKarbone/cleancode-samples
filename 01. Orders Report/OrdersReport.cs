@@ -7,20 +7,19 @@ namespace OrdersReport
     internal class OrdersReport
     {
         private readonly IEnumerable<Order> orders;
-        private readonly DateTime startDate;
-        private readonly DateTime endDate;
-        public OrdersReport(IEnumerable<Order> orders, DateTime startDate, DateTime endDate)
+        private readonly DateRange dateRange;
+
+        public OrdersReport(IEnumerable<Order> orders, DateRange dateRange)
         {
             this.orders = orders;
-            this.startDate = startDate;
-            this.endDate = endDate;
+            this.dateRange = dateRange;
         }
 
         public decimal TotalSalesWithinDateRange()
         {
             return orders_within_range().Sum(x => x.Amount);
 
-            IEnumerable<Order> orders_within_range() => orders.Where(x => x.PlacedBetween(startDate, endDate));
+            IEnumerable<Order> orders_within_range() => orders.Where(x => x.PlacedBetween(dateRange));
         }
     }
 
@@ -28,7 +27,13 @@ namespace OrdersReport
     {
         public DateTime PlacedAt { get; set; }
         public decimal Amount { get; set; }
-        public bool PlacedBetween(DateTime startDate, DateTime endDate) =>
-            this.PlacedAt >= startDate && this.PlacedAt <= endDate;
+        public bool PlacedBetween(DateRange dateRange) =>
+            this.PlacedAt >= dateRange.StartDate && this.PlacedAt <= dateRange.EndDate;
+    }
+
+    class DateRange
+    {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }
