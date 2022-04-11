@@ -6,20 +6,27 @@ namespace OrdersReport
 {
     internal class OrdersReport
     {
-        private readonly IEnumerable<Order> orders;
-        private readonly DateRange dateRange;
-
-        public OrdersReport(IEnumerable<Order> orders, DateRange dateRange)
+        public TotalSalesWithinDateRangeResponse Handle(TotalSalesWithinDateRangeRequest request)
         {
-            this.orders = orders;
-            this.dateRange = dateRange;
+            return new TotalSalesWithinDateRangeResponse { Amount = orders_within_range().Sum(x => x.Amount) };
+
+            IEnumerable<Order> orders_within_range() => request.Orders.Where(x => x.PlacedBetween(request.DateRange));
         }
 
-        public decimal TotalSalesWithinDateRange()
+        public class TotalSalesWithinDateRangeRequest
         {
-            return orders_within_range().Sum(x => x.Amount);
+            public TotalSalesWithinDateRangeRequest(IEnumerable<Order> orders, DateRange dateRange)
+            {
+                this.Orders = orders;
+                this.DateRange = dateRange;
+            }
+            public IEnumerable<Order> Orders { get; set; }
+            public DateRange DateRange { get; set; }
+        }
 
-            IEnumerable<Order> orders_within_range() => orders.Where(x => x.PlacedBetween(dateRange));
+        public class TotalSalesWithinDateRangeResponse
+        {
+            public decimal Amount { get; set; }
         }
     }
 
