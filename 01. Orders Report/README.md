@@ -63,8 +63,7 @@ IEnumerable<Order> orders_within_range() => orders.Where(x => x.PlacedBetween(st
 
 ### Stp #4 expose Total Sales calculation as a separate use case with its own request and response
 
-```charp
-
+```csharp
 public TotalSalesWithinDateRangeResponse Handle(TotalSalesWithinDateRangeRequest request)
 {
     return new TotalSalesWithinDateRangeResponse { Amount = orders_within_range().Sum(x => x.Amount) };
