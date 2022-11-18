@@ -43,4 +43,41 @@ namespace OrdersReport
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
     }
+
+    namespace Initial
+    {
+        internal class OrdersReport
+        {
+            public OrdersReport(IEnumerable<Order> orders, DateTime startDate, DateTime endDate)
+            {
+                Orders = orders;
+                StartDate = startDate;
+                EndDate = endDate;
+            }
+
+            public IEnumerable<Order> Orders { get; }
+            public DateTime StartDate { get; private set; }
+            public DateTime EndDate { get; }
+
+            public decimal GetTotalSalesWithinDateRang()
+            {
+                var orders_within_range = Orders.Where(x => x.PlacedAt >= StartDate && x.PlacedAt <= EndDate);
+                return orders_within_range.Sum(x => x.Amount);
+            }
+        }
+
+        class Order
+        {
+            public DateTime PlacedAt { get; set; }
+            public decimal Amount { get; set; }
+            public bool PlacedBetween(DateRange dateRange) =>
+                this.PlacedAt >= dateRange.StartDate && this.PlacedAt <= dateRange.EndDate;
+        }
+
+        class DateRange
+        {
+            public DateTime StartDate { get; set; }
+            public DateTime EndDate { get; set; }
+        }
+    }
 }

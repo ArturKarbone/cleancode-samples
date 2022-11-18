@@ -23,13 +23,28 @@ namespace OrdersReport
             var result = new OrdersReport().Handle(
                 new(
                     orders,
-                    new () 
+                    new()
                     {
                         StartDate = DateTime.Parse("10/1/2022"),
                         EndDate = DateTime.Parse("10/2/2022")
                     }));
 
             result.Amount.ShouldBe(300m);
+        }
+
+        [Fact]
+        public void should_calculate_total_sales_within_range_for_initial_code()
+        {
+            List<Initial.Order> orders = new()
+            {
+                new () { Amount = 100, PlacedAt = DateTime.Parse("10/1/2022") },
+                new () { Amount = 200, PlacedAt = DateTime.Parse("10/2/2022") },
+                new () { Amount = 400, PlacedAt = DateTime.Parse("10/3/2022") }
+            };
+
+            var orderReport = new Initial.OrdersReport(orders, DateTime.Parse("10/1/2022"), DateTime.Parse("10/2/2022"));
+
+            orderReport.GetTotalSalesWithinDateRang().ShouldBe(300m);
         }
     }
 }
