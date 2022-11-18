@@ -5,11 +5,11 @@
 before:
 
 ```csharp
-  public decimal TotalSalesWithinDateRange()
-  {
-      var orders_within_range = orders.Where(x => x.PlacedAt >= startDate && x.PlacedAt <= endDate);
-      return orders_within_range.Sum(x => x.Amount);
-  }
+public decimal TotalSalesWithinDateRange()
+{
+    var orders_within_range = orders.Where(x => x.PlacedAt >= startDate && x.PlacedAt <= endDate);
+    return orders_within_range.Sum(x => x.Amount);
+}
 ```
 
 Turn **orders_within_range** into a local or a private function, since the function contains details. Extract temp to query.
@@ -19,12 +19,12 @@ Programmers read code. Extracting to a function gives us a hint - the details ar
 after:
 
 ```csharp
-  public decimal TotalSalesWithinDateRange()
-  {
-      return orders_within_range().Sum(x => x.Amount);
+public decimal TotalSalesWithinDateRange()
+{
+    return orders_within_range().Sum(x => x.Amount);
 
-      IEnumerable<Order> orders_within_range() => orders.Where(x => x.PlacedAt >= startDate && x.PlacedAt <= endDate);
-  }
+    IEnumerable<Order> orders_within_range() => orders.Where(x => x.PlacedAt >= startDate && x.PlacedAt <= endDate);
+}
 ```
 
 ### Step #2 (Tell. Don't ask)
@@ -151,7 +151,7 @@ var result = new OrdersReport().Handle(new OrdersReport.TotalSalesWithinDateRang
 
 ```
 
-Note: highlight **new** and press F12 (go to definition). The same approach works for **var**
+Note: highlight **new** and press F12 (go to definition). The same approach works for **var**.
 
 afer:
 
