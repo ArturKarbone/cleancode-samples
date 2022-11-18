@@ -128,7 +128,7 @@ var orders = new List<Order>
 or even this:
 
 ```csharp
- List<Order> orders = new()
+List<Order> orders = new()
 {
     new () { Amount = 100, PlacedAt = DateTime.Parse("10/1/2022") },
     new () { Amount = 200, PlacedAt = DateTime.Parse("10/2/2022") },
@@ -151,7 +151,7 @@ var result = new OrdersReport().Handle(new OrdersReport.TotalSalesWithinDateRang
 
 ```
 
-Note: highlight **new** and press F12 (go to definition). The same approach works for var
+Note: highlight **new** and press F12 (go to definition). The same approach works for **var**
 
 afer:
 
