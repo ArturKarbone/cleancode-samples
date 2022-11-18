@@ -135,3 +135,36 @@ or even this:
     new () { Amount = 400, PlacedAt = DateTime.Parse("10/3/2022") }
 };
 ```
+
+### Step #7 Leverage target-typed new expression in use-case requests
+
+before:
+
+```csharp
+var result = new OrdersReport().Handle(new OrdersReport.TotalSalesWithinDateRangeRequest(
+        orders,
+        new DateRange()
+        {
+            StartDate = DateTime.Parse("10/1/2022"),
+            EndDate = DateTime.Parse("10/2/2022")
+        }));
+
+```
+
+Note: highlight **new** and press F12 (go to definition). The same approach works for var
+
+afer:
+
+
+```csharp
+
+var result = new OrdersReport().Handle(
+    new(
+        orders,
+        new ()
+        {
+            StartDate = DateTime.Parse("10/1/2022"),
+            EndDate = DateTime.Parse("10/2/2022")
+        }));
+
+```
