@@ -44,7 +44,7 @@ namespace OrdersReport
 
             var orderReport = new Initial.OrdersReport(orders, DateTime.Parse("10/1/2022"), DateTime.Parse("10/2/2022"));
 
-            orderReport.GetTotalSalesWithinDateRang().ShouldBe(300m);
+            orderReport.GetTotalSalesWithinDateRange().ShouldBe(300m);
         }
     }
 }

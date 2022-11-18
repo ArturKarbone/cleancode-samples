@@ -13,6 +13,12 @@ namespace OrdersReport
             IEnumerable<Order> orders_within_range() => request.Orders.Where(x => x.PlacedBetween(request.DateRange));
         }
 
+        public TotalSalesWithinDateRangeResponse Handle2(TotalSalesWithinDateRangeRequest request)
+            => new() { Amount = orders_within_range(request).Sum(x => x.Amount) };
+
+        IEnumerable<Order> orders_within_range(TotalSalesWithinDateRangeRequest request) =>
+            request.Orders.Where(x => x.PlacedBetween(request.DateRange));
+
         public class TotalSalesWithinDateRangeRequest
         {
             public TotalSalesWithinDateRangeRequest(IEnumerable<Order> orders, DateRange dateRange)
@@ -34,14 +40,19 @@ namespace OrdersReport
     {
         public DateTime PlacedAt { get; set; }
         public decimal Amount { get; set; }
+
         public bool PlacedBetween(DateRange dateRange) =>
-            this.PlacedAt >= dateRange.StartDate && this.PlacedAt <= dateRange.EndDate;
+            dateRange.Includes(this.PlacedAt);
     }
 
     class DateRange
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+        //todo: cover with tests
+        public bool Includes(DateTime placedAt) =>
+          placedAt >= StartDate && placedAt <= EndDate;
     }
 
     namespace Initial
@@ -59,7 +70,13 @@ namespace OrdersReport
             public DateTime StartDate { get; private set; }
             public DateTime EndDate { get; }
 
-            public decimal GetTotalSalesWithinDateRang()
+            public decimal GetTotalSalesWithinDateRange()
+            {
+                var orders_within_range = Orders.Where(x => x.PlacedAt >= StartDate && x.PlacedAt <= EndDate);
+                return orders_within_range.Sum(x => x.Amount);
+            }
+
+            public decimal total_sales_within_date_range()
             {
                 var orders_within_range = Orders.Where(x => x.PlacedAt >= StartDate && x.PlacedAt <= EndDate);
                 return orders_within_range.Sum(x => x.Amount);
