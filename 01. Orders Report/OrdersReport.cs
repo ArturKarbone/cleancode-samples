@@ -8,7 +8,7 @@ namespace OrdersReport
     {
         public TotalSalesWithinDateRangeResponse Handle(TotalSalesWithinDateRangeRequest request)
         {
-            return new TotalSalesWithinDateRangeResponse { Amount = orders_within_range().Sum(x => x.Amount) };
+            return new() { Amount = orders_within_range().Sum(x => x.Amount) };
 
             IEnumerable<Order> orders_within_range() => request.Orders.Where(x => x.PlacedBetween(request.DateRange));
         }

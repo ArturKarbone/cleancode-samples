@@ -71,3 +71,67 @@ public TotalSalesWithinDateRangeResponse Handle(TotalSalesWithinDateRangeRequest
     IEnumerable<Order> orders_within_range() => request.Orders.Where(x => x.PlacedBetween(request.DateRange));
 }
 ```
+
+
+### Step #5 Leverage target-typed new expression
+
+before:
+
+```csharp
+public TotalSalesWithinDateRangeResponse Handle(TotalSalesWithinDateRangeRequest request)
+{
+    return new TotalSalesWithinDateRangeResponse { Amount = orders_within_range().Sum(x => x.Amount) };
+
+    IEnumerable<Order> orders_within_range() => request.Orders.Where(x => x.PlacedBetween(request.DateRange));
+}
+```
+
+afer:
+
+
+```csharp
+public TotalSalesWithinDateRangeResponse Handle(TotalSalesWithinDateRangeRequest request)
+{
+    return new() { Amount = orders_within_range().Sum(x => x.Amount) };
+
+    IEnumerable<Order> orders_within_range() => request.Orders.Where(x => x.PlacedBetween(request.DateRange));
+}
+```
+
+
+
+### Step #6 Leverage target-typed new expression in tests
+
+before:
+
+```csharp
+var orders = new List<Order>
+{
+    new Order() { Amount = 100, PlacedAt = DateTime.Parse("10/1/2022") },
+    new Order() { Amount = 200, PlacedAt = DateTime.Parse("10/2/2022") },
+    new Order() { Amount = 400, PlacedAt = DateTime.Parse("10/3/2022") }
+};
+```
+
+afer:
+
+
+```csharp
+var orders = new List<Order>
+{
+    new () { Amount = 100, PlacedAt = DateTime.Parse("10/1/2022") },
+    new () { Amount = 200, PlacedAt = DateTime.Parse("10/2/2022") },
+    new () { Amount = 400, PlacedAt = DateTime.Parse("10/3/2022") }
+};
+```
+
+or even this:
+
+```csharp
+ List<Order> orders = new()
+{
+    new () { Amount = 100, PlacedAt = DateTime.Parse("10/1/2022") },
+    new () { Amount = 200, PlacedAt = DateTime.Parse("10/2/2022") },
+    new () { Amount = 400, PlacedAt = DateTime.Parse("10/3/2022") }
+};
+```
