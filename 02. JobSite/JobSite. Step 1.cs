@@ -1,57 +1,10 @@
 ﻿using Moq;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JobSite
 {
-    namespace Initial
-    {
-        /// <summary>
-        /// A physical location where work is done, especially construction work.
-        /// </summary>
-        /// <translation>
-        /// Рабочее место/локация
-        /// </translation>
-        internal class JobSite
-        {
-            public JobSite(Location location)
-            {
-                Location = location;
-            }
 
-            public Location Location { get; set; }
-            //optional
-            public Contact? Contact { get; set; }
-
-            //Violates tell don't ask
-
-            public string ContactName =>
-                Contact?.Name ?? "No Name";
-
-            public string ContactPhone =>
-                Contact?.Phone ?? "No Phone";
-        }
-
-        internal class Location { }
-        internal class Contact
-        {
-
-            public Contact(string name, string phone)
-            {
-                Name = name;
-                Phone = phone;
-            }
-
-            public string Name { get; set; }
-            public string Phone { get; set; }
-        }
-    }
-
-    namespace Step2
+    namespace Step1
     {
         internal class JobSite
         {
