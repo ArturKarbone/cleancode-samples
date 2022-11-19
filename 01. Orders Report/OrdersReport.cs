@@ -68,6 +68,14 @@ namespace OrdersReport
 
             public IEnumerable<Order> Orders { get; }
             public DateTime StartDate { get; private set; }
+            //Readonly property
+            //https://developerpublish.com/getter-only-read-only-auto-properties-in-c-6-0/
+            //https://www.pluralsight.com/guides/declare-and-initialize-read-only-auto-properties-in-c
+            //https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/auto-implemented-properties
+            //https://www.c-sharpcorner.com/UploadFile/3d39b4/property-in-C-Sharp/
+
+            //C# 6.0
+            //https://learn.microsoft.com/en-us/archive/msdn-magazine/2014/october/csharp-the-new-and-improved-csharp-6-0
             public DateTime EndDate { get; }
 
             public decimal GetTotalSalesWithinDateRange()
