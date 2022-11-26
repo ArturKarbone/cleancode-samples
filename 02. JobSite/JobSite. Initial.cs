@@ -31,6 +31,23 @@ namespace JobSite
             public string ContactPhone =>
                 Contact?.Phone ?? "No Phone";
 
+            public string ContactPhoneEvenComplicated
+            {
+                get
+                {
+                    //return Contact.Phone; 
+
+                    if (Contact == null)
+                        return "no phone";
+                    else
+                        return Contact.Phone;
+
+                    //unreachable code detected
+                    //return Contact.Phone; 
+                }
+            }
+
+
             public void EmailContact(string emailBody) =>
                Contact?.DeliverPersonalizedEmail(emailBody);
         }
