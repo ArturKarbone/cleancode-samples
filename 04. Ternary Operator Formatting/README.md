@@ -1,23 +1,23 @@
 ```csharp
  public TIPercent ActualCPFBonusEE =>
-            Family.Assigne.Age > 70 ? 
-                CPF70BonusEE :
-            Family.Assigne.Age > 65 ? 
-                CPF65BonusEE :
-            Family.Assigne.Age > 60 ? 
-                CPF60BonusEE :
-            Family.Assigne.Age > 55 ? 
-                CPF55BonusEE : CPFBonusEE;
+  Family.Assigne.Age > 70 ? 
+      CPF70BonusEE :
+  Family.Assigne.Age > 65 ? 
+      CPF65BonusEE :
+  Family.Assigne.Age > 60 ? 
+      CPF60BonusEE :
+  Family.Assigne.Age > 55 ? 
+      CPF55BonusEE : CPFBonusEE;
             
 ```
 
 ```csharp
  public TIPercent ActualCPFBonusEE =>
-            Family.Assigne.Age > 70 ? CPF70BonusEE :
-            Family.Assigne.Age > 65 ? CPF65BonusEE :
-            Family.Assigne.Age > 60 ? CPF60BonusEE :
-            Family.Assigne.Age > 55 ? CPF55BonusEE :
-            CPFBonusEE;
+  Family.Assigne.Age > 70 ? CPF70BonusEE :
+  Family.Assigne.Age > 65 ? CPF65BonusEE :
+  Family.Assigne.Age > 60 ? CPF60BonusEE :
+  Family.Assigne.Age > 55 ? CPF55BonusEE :
+         CPFBonusEE;
             
 ```
 
