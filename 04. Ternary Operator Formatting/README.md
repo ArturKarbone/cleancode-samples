@@ -28,6 +28,15 @@
       age > 60 ? CPF60BonusEE :
       age > 55 ? CPF55BonusEE :
           CPFBonusEE;
+          
+ public TIPercent ActualCPFBonusER(int age) =>
+     age > 70 ? CPF70BonusER :
+     age > 65 ? CPF65BonusER :
+     age > 60 ? CPF60BonusER :
+     age > 55 ? CPF55BonusER :
+          CPFBonusER;
+          
+ etc.
             
  ```
  
