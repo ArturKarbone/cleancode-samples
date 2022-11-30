@@ -55,10 +55,20 @@
       PickTaxationByAge(age, CPF70SalaryEE, CPF65SalaryEE, CPF60SalaryEE, CPF55SalaryEE, CPFSalaryEE);
  ```
  
+ slices
+ 
  ```csharp
+ class CPF
+    {
+        public static ITaxation PickTaxationByAge(int age, ITaxation over70, ITaxation over65, ITaxation over60, ITaxation over55, ITaxation defaultTaxation) =>
+              age > 70 ? over70 :
+              age > 65 ? over65 :
+              age > 60 ? over60 :
+              age > 55 ? over55 :
+                  defaultTaxation;
+    }
  
- 
- 
+ ```
  
             
    
