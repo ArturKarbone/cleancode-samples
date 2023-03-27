@@ -38,8 +38,8 @@ namespace OrdersReport
 
     class Order
     {
-        public DateTime PlacedAt { get; set; }
-        public decimal Amount { get; set; }
+        public required DateTime PlacedAt { get; init; }
+        public required decimal Amount { get; init; }
 
         public bool PlacedBetween(DateRange dateRange) =>
             dateRange.Includes(this.PlacedAt);
