@@ -47,6 +47,17 @@ namespace OrdersReport
 
     class DateRange
     {
+        private DateRange()
+        {
+
+        }
+
+        public static DateRange Between(string startDate, string endDate) =>
+            Between(DateTime.Parse(startDate), DateTime.Parse(endDate));
+
+        public static DateRange Between(DateTime startDate, DateTime endDate) =>
+            new() { StartDate = startDate, EndDate = endDate };
+
         required public DateTime StartDate { get; init; }
         required public DateTime EndDate { get; init; }
 

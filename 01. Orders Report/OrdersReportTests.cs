@@ -23,11 +23,8 @@ namespace OrdersReport
             var result = new OrdersReport().Handle(
                 new(
                     orders,
-                    new()
-                    {
-                        StartDate = DateTime.Parse("10/1/2022"),
-                        EndDate = DateTime.Parse("10/2/2022")
-                    }));
+                    DateRange.Between("10/1/2022", "10/2/2022")
+                    ));
 
             result.Amount.ShouldBe(300m);
         }
