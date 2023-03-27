@@ -47,8 +47,8 @@ namespace OrdersReport
 
     class DateRange
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        required public DateTime StartDate { get; init; }
+        required public DateTime EndDate { get; init; }
 
         //todo: cover with tests
         public bool Includes(DateTime placedAt) =>
