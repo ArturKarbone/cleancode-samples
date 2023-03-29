@@ -23,7 +23,7 @@ namespace OrdersReport
         public class TotalSalesWithinDateRangeRequest
         {
             // https://anthonygiretti.com/2022/12/02/introducing-c11-required-properties/
-  
+
             [SetsRequiredMembers]
             public TotalSalesWithinDateRangeRequest(IEnumerable<Order> orders, DateRange dateRange)
             {
@@ -81,7 +81,7 @@ namespace OrdersReport
                 EndDate = endDate;
             }
 
-            public IEnumerable<Order> Orders { get; }
+            public IEnumerable<Order> Orders { get; init; }
             public DateTime StartDate { get; private set; }
             //Readonly property
             //https://developerpublish.com/getter-only-read-only-auto-properties-in-c-6-0/
@@ -108,16 +108,16 @@ namespace OrdersReport
 
         class Order
         {
-            public DateTime PlacedAt { get; set; }
-            public decimal Amount { get; set; }
+            public required DateTime PlacedAt { get; init; }
+            public required decimal Amount { get; init; }
             public bool PlacedBetween(DateRange dateRange) =>
                 this.PlacedAt >= dateRange.StartDate && this.PlacedAt <= dateRange.EndDate;
         }
 
         class DateRange
         {
-            public DateTime StartDate { get; set; }
-            public DateTime EndDate { get; set; }
+            public required DateTime StartDate { get; init; }
+            public required DateTime EndDate { get; init; }
         }
     }
 }
