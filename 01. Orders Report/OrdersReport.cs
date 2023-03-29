@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace OrdersReport
@@ -21,13 +22,16 @@ namespace OrdersReport
 
         public class TotalSalesWithinDateRangeRequest
         {
+            // https://anthonygiretti.com/2022/12/02/introducing-c11-required-properties/
+  
+            [SetsRequiredMembers]
             public TotalSalesWithinDateRangeRequest(IEnumerable<Order> orders, DateRange dateRange)
             {
                 this.Orders = orders;
                 this.DateRange = dateRange;
             }
-            public IEnumerable<Order> Orders { get; set; }
-            public DateRange DateRange { get; set; }
+            required public IEnumerable<Order> Orders { get; init; }
+            required public DateRange DateRange { get; init; }
         }
 
         public class TotalSalesWithinDateRangeResponse
