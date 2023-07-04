@@ -78,35 +78,11 @@ internal class OrderProcessor
             order is not null &&
             order.IsVerified &&
             order.Items.Any();
+
     }
 
     //Step 4 Specific Exceptions
     public void Process4(Order? order)
-    {
-        //early return principle
-        if (!IsOrderProcessable())
-            return;
-
-        if (order!.Items.Count() > 15)
-        {
-            throw new Exception("The Order " + order.Id + " has to many items");
-        }
-
-        if (order.StatusOld != "ReadyToProcess")
-        {
-            throw new Exception("The Order " + order.Id + " isn't ready to process");
-        }
-
-        order.IsProcessed = true;
-
-        bool IsOrderProcessable() =>
-            order is not null &&
-            order.IsVerified &&
-            order.Items.Any();
-    }
-
-    //Step 5 Specific Exceptions
-    public void Process5(Order? order)
     {
         //early return principle
         if (!IsOrderProcessable())
@@ -131,8 +107,8 @@ internal class OrderProcessor
     }
 
     public const int ProcessableNumberOfLineItems = 15;
-    //Step 6 Address Magic strings/numbers
-    public void Process6(Order? order)
+    //Step 5 Address Magic strings/numbers
+    public void Process5(Order? order)
     {
         //early return principle
         if (!IsOrderProcessable())
@@ -156,7 +132,34 @@ internal class OrderProcessor
             order.Items.Any();
     }
 
-    //Step 7 Replace return type with a result object
+    //Step 6 Replace return type with a result object
+    public ProcessOrderResult Process6(Order? order)
+    {
+        //early return principle
+        if (!IsOrderProcessable())
+            return ProcessOrderResult.NotProcessable();
+
+        if (order!.Items.Count() > ProcessableNumberOfLineItems)
+        {
+            return ProcessOrderResult.HasTooManyLineItems(order.Id);
+        }
+
+        if (order.Status != OrderStatus.ReadyToProcess)
+        {
+            return ProcessOrderResult.NotReadyForProcessing(order.Id);
+        }
+
+        order.IsProcessed = true;
+
+        return ProcessOrderResult.Successful(order.Id);
+
+        bool IsOrderProcessable() =>
+            order is not null &&
+            order.IsVerified &&
+            order.Items.Any();
+    }
+
+    //Step 7 ifs without braces
     public ProcessOrderResult Process7(Order? order)
     {
         //early return principle
@@ -165,7 +168,6 @@ internal class OrderProcessor
 
         if (order!.Items.Count() > ProcessableNumberOfLineItems)
             return ProcessOrderResult.HasTooManyLineItems(order.Id);
-
 
         if (order.Status != OrderStatus.ReadyToProcess)
             return ProcessOrderResult.NotReadyForProcessing(order.Id);
