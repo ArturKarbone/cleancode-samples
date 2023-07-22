@@ -2,12 +2,12 @@
 
 internal record ProcessOrderResult
 {
-    public ProcessOrderResult(Guid orderId, string message)
+    public ProcessOrderResult(Guid orderId, string? message)
     {
         this.OrderId = orderId;
         this.Message = message;
     }
-    public string Message { get; init; }
+    public string? Message { get; init; }
     public Guid OrderId { get; init; }
 
     public bool IsValid =>
@@ -23,6 +23,7 @@ internal record ProcessOrderResult
     public static ProcessOrderResult HasTooManyLineItems(Guid orderId) =>
        new ProcessOrderResult(orderId, $"The Order {orderId} has to many items");
 
+    //play with nullable/non-nullable message
     public static ProcessOrderResult Successful(Guid orderId) =>
         new ProcessOrderResult(orderId, default);
 }

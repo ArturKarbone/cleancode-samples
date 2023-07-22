@@ -8,5 +8,7 @@ internal class Order
     public IEnumerable<LineItem> Items { get; set; } = Enumerable.Empty<LineItem>();
     public OrderStatus Status { get; internal set; } = OrderStatus.Pending;
     public string StatusOld { get; internal set; }
+
+    public bool IsProcessable() => IsVerified && Items.Any();
 }
 

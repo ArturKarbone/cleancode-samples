@@ -10,6 +10,5 @@ internal sealed class OrderIsNotProcessableException : Exception
     {
         this.OrderId = orderId;
     }
-
 }
 
